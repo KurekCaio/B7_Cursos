@@ -1,14 +1,20 @@
-import { Header } from './components/Header'
-import { Photo } from './components/Photo'
+import { useState } from 'react';
 
 function App() {
+  const [show, setShow] = useState(false);
+
+  const clique = () => {
+    setShow( !show ) 
+  }
+
   return (
-  <div>
-    <Header title="Exemplo"/>
-    <Header title="fvdhbd"/>
-    Olá Mundo!
-    <Photo url="http://www.google.com.br/google.jpg" legend="Testezada"/>
-  </div>
+    <div>
+      <button onClick={clique}>{show ? 'Ocultar' : 'Mostrar'}</button>
+
+      {show === true &&
+      <div>Bla bla bla</div>
+      }
+      </div>
   );   
 }
 export default App;
