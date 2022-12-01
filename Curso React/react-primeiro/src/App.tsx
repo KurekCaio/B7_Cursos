@@ -1,20 +1,16 @@
-import { useState } from 'react';
+import * as C from './AppStyles'
 
 function App() {
-  const [show, setShow] = useState(false);
-
-  const clique = () => {
-    setShow( !show ) 
-  }
-
   return (
-    <div>
-      <button onClick={clique}>{show ? 'Ocultar' : 'Mostrar'}</button>
-
-      {show === true &&
-      <div>Bla bla bla</div>
-      }
-      </div>
+    <C.Container bgColor="#CCC">
+         Texto do Container.
+         <a className="link" href="">Linkzada</a>
+         <C.Botao bg="#FF0000" >Clique maior</C.Botao>
+         <C.Botao bg="#00FF00" small>Clique menor</C.Botao>
+    </C.Container>
   );   
 }
 export default App;
+
+
+
