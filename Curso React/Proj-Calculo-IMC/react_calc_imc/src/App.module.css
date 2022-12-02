@@ -42,6 +42,10 @@ body {
     outline: 0;
 }
 
+.leftSide input:disabled {
+    opacity: 50%;
+}
+
 .leftSide button {
     background-color: #227C9D;
     color: white;
@@ -59,6 +63,10 @@ body {
     opacity: 80%;
 }
 
+.leftSide button:disabled {
+    opacity: 50%;
+}
+
 .rightSide {
     flex: 1;
     margin-left: 40px;
@@ -70,4 +78,37 @@ body {
     display: grid;
     grid-template-columns: repeat(2,1fr);
     gap: 20px;
+}
+
+.rightBig {
+    flex: 1;
+    display: flex;
+}
+
+.rightArrow {
+    position: absolute;
+    background-color: #227C9D;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: -35px;
+    margin-top: 145px;
+    transition: all ease 0.25s
+}
+
+.rightArrow:hover {
+    opacity: 90%;
+}
+
+@media (max-width: 770px) {
+    header {
+        padding: 0 20px;
+    }
+    .container {
+        padding: 0 20px;
+    }
 }
