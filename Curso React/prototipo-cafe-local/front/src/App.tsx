@@ -3,20 +3,21 @@ import Axios from 'axios'
 import styles from './App.module.css';
 import logoMaua from './assets/logo-IMT.png'
 import logoNspi from './assets/nspi-logo.png'
-import { Pedido, processRequest } from './helper/processRequest';
 
 const App = () => {
 
-// useEffect(() => {
-//   Axios.get('http://localhost:3001/api/get').then((response) => {
-//   console.log(response)
-//   })
-// }, [])
+useEffect(() => {
+  Axios.get('http://localhost:3001/api/get').then((response) => {
+  // console.log(response.data)
+  setList(response.data)
+  })
+}, [])
 
 const [name, setName] = useState("")
 const [phone, setPhone] = useState(0)
 const [coffee, setCoffee] = useState(0)
 const [info, setInfo] = useState(false)
+const [list, setList] = useState<any[]>([])
 
 const sendRequest = () => {
   if (name && phone && coffee) {
@@ -25,9 +26,10 @@ const sendRequest = () => {
       phone: phone, 
       coffee: coffee,
       info: info
-    }).then(() => {
-      alert('successful insert')
     })
+
+    setList([...list, {name: name, phone: phone}])
+
     setName("")
     setPhone(0)
     setCoffee(0)
@@ -99,15 +101,13 @@ const sendRequest = () => {
         </div>
 
         <div className={styles.rightSide}>
-          <p>Nome: {name}. Telefone: {phone}. Café: {coffee-1}.</p>
-          <p>Info: {info}</p>
+          {list.map((val, key) => {
+            return (<h4 key={key}>Nome: {val.name} | Phone: {val.phone}</h4>)
+          })}
         </div>
       </div>
     </div>
   );
 }
-
-// onClick no botao salvar as infos na classe
-// exibir resultado na direita
 
 export default App;
