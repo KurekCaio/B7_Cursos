@@ -1,4 +1,5 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+import Axios from 'axios'
 import styles from './App.module.css';
 import logoMaua from './assets/logo-IMT.png'
 import logoNspi from './assets/nspi-logo.png'
@@ -6,16 +7,27 @@ import { Pedido, processRequest } from './helper/processRequest';
 
 const App = () => {
 
+// useEffect(() => {
+//   Axios.get('http://localhost:3001/api/get').then((response) => {
+//   console.log(response)
+//   })
+// }, [])
+
 const [name, setName] = useState("")
 const [phone, setPhone] = useState(0)
 const [coffee, setCoffee] = useState(0)
-const [show, setShow] = useState('')
-// const [show,setShow] = useState<Pedido | null>(null)
+const [info, setInfo] = useState(false)
 
 const sendRequest = () => {
   if (name && phone && coffee) {
-    setShow(processRequest(name,phone,coffee))
-
+    Axios.post('http://localhost:3001/api/insert', {
+      name: name, 
+      phone: phone, 
+      coffee: coffee,
+      info: info
+    }).then(() => {
+      alert('successful insert')
+    })
     setName("")
     setPhone(0)
     setCoffee(0)
@@ -60,7 +72,6 @@ const sendRequest = () => {
           <select 
           id='saborCafe' 
           onChange={e => setCoffee(parseInt(e.target.value))} 
-          defaultValue="0"
           value={coffee !== 0 ? coffee : 0}
           >
             <option value="0" disabled>--Escolha o sabor do café--</option>
@@ -70,7 +81,17 @@ const sendRequest = () => {
           </select>
 
           <label>
-            <input type="checkbox" value='info' className={styles.checkbox}/>
+            <input 
+              type="checkbox" 
+              value='info' 
+              className={styles.checkbox} 
+              onChange={e => {
+                if (e.target.checked) {
+                  setInfo(true)
+                } else {
+                  setInfo(false)
+                }
+              }}/>
             Gostaria de receber informativos da Mauá?
           </label>
           
@@ -79,20 +100,14 @@ const sendRequest = () => {
 
         <div className={styles.rightSide}>
           <p>Nome: {name}. Telefone: {phone}. Café: {coffee-1}.</p>
-          <ul>
-            <li>{name} / {phone} / {coffee} </li>
-            <li>{show}</li>
-          </ul>
+          <p>Info: {info}</p>
         </div>
       </div>
     </div>
   );
 }
 
-
-// criar classe com nome, numero, sabor e *opcional* checkbox info
 // onClick no botao salvar as infos na classe
 // exibir resultado na direita
-
 
 export default App;
