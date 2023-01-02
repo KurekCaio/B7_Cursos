@@ -33,6 +33,8 @@ const sendRequest = () => {
     setName("")
     setPhone(0)
     setCoffee(0)
+    setInfo(false)
+
   } else {
     alert("Preencha todos os campos")
   }
@@ -82,20 +84,16 @@ const sendRequest = () => {
             <option value="3">Creme brullê</option>
           </select>
 
-          <label>
+
+          <div className={styles.checkboxDiv}>
             <input 
-              type="checkbox" 
+              type="checkbox"
               value='info' 
-              className={styles.checkbox} 
-              onChange={e => {
-                if (e.target.checked) {
-                  setInfo(true)
-                } else {
-                  setInfo(false)
-                }
-              }}/>
-            Gostaria de receber informativos da Mauá?
-          </label>
+              className={styles.checkbox}
+              checked={info} 
+              onChange={e => {setInfo(e.target.checked)}} />
+            <p>Gostaria de receber informativos da Mauá?</p>
+          </div>
           
           <button onClick={sendRequest}>Realizar pedido</button>
         </div>
@@ -104,8 +102,11 @@ const sendRequest = () => {
           {list.map((val, key) => {
             return (<h4 key={key}>Nome: {val.name} | Phone: {val.phone}</h4>)
           })}
+          BLOB
         </div>
+
       </div>
+      
     </div>
   );
 }
