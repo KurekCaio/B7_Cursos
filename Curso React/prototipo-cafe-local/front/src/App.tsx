@@ -3,6 +3,7 @@ import Axios from 'axios'
 import styles from './App.module.css';
 import logoMaua from './assets/logo-IMT.png'
 import logoNspi from './assets/nspi-logo.png'
+import {useForm} from 'react-hook-form'
 
 const App = () => {
 
@@ -61,16 +62,25 @@ const sendRequest = () => {
         <div className={styles.leftSide}>
           <p>Peça seu café preenchendo os campos abaixo:</p>
 
-          <input type="string"
+          <input 
+          type="text"
           placeholder="Digite seu nome"
           value={name.length > 0 ? name : ''}
           onChange={e => setName(e.target.value)}
+          pattern="[A-Za-Z].{3}"
+          minLength={2}
+          maxLength={15} 
+          required
           />
 
-          <input type="number"
+          <input 
+          type="number"
           placeholder="Digite seu n° de celular"
           value={phone > 0 ? phone : ''}
           onChange={e => setPhone(parseInt(e.target.value))}
+          minLength={8}
+          maxLength={30}
+          required
           />
 
           <select 
