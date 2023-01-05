@@ -19,6 +19,11 @@ const [phone, setPhone] = useState(0)
 const [coffee, setCoffee] = useState(0)
 const [info, setInfo] = useState(false)
 const [list, setList] = useState<any[]>([])
+const {register,handleSubmit} = useForm()
+
+const onSubmit = (data: any) => {
+  console.log(data)
+}
 
 const sendRequest = () => {
   if (name && phone && coffee) {
@@ -62,50 +67,53 @@ const sendRequest = () => {
         <div className={styles.leftSide}>
           <p>Peça seu café preenchendo os campos abaixo:</p>
 
-          <input 
-          type="text"
-          placeholder="Digite seu nome"
-          value={name.length > 0 ? name : ''}
-          onChange={e => setName(e.target.value)}
-          pattern="[A-Za-Z].{3}"
-          minLength={2}
-          maxLength={15} 
-          required
-          />
-
-          <input 
-          type="number"
-          placeholder="Digite seu n° de celular"
-          value={phone > 0 ? phone : ''}
-          onChange={e => setPhone(parseInt(e.target.value))}
-          minLength={8}
-          maxLength={30}
-          required
-          />
-
-          <select 
-          id='saborCafe' 
-          onChange={e => setCoffee(parseInt(e.target.value))} 
-          value={coffee !== 0 ? coffee : 0}
-          >
-            <option value="0" disabled>--Escolha o sabor do café--</option>
-            <option value="1">Café puro</option>
-            <option value="2">Capuccino</option>
-            <option value="3">Creme brullê</option>
-          </select>
-
-
-          <div className={styles.checkboxDiv}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <input 
-              type="checkbox"
-              value='info' 
-              className={styles.checkbox}
-              checked={info} 
-              onChange={e => {setInfo(e.target.checked)}} />
-            <p>Gostaria de receber informativos da Mauá?</p>
-          </div>
+            type="text"
+            placeholder="Digite seu nome"
+            {...register("name")}
+            // value={name.length > 0 ? name : 
+            // onChange={e => setName(e.target.value)}
+
+            />
+
+            <input 
+            type="number"
+            placeholder="Digite seu n° de celular"
+            {...register("phone")}
+            // value={phone > 0 ? phone : ''}
+            // onChange={e => setPhone(parseInt(e.target.value))}
+
+            />
+
+            <select 
+            id='saborCafe'
+            {...register("coffee")} 
+            // value={coffee !== 0 ? coffee : 0}
+            // onChange={e => setCoffee(parseInt(e.target.value))} 
+            >
+              <option value="0" disabled>--Escolha o sabor do café--</option>
+              <option value="1">Café puro</option>
+              <option value="2">Capuccino</option>
+              <option value="3">Creme brullê</option>
+            </select>
+
+            <div className={styles.checkboxDiv}>
+              <input 
+                type="checkbox"
+                // value='info' 
+                className={styles.checkbox}
+                // checked={info}
+                {...register("info")} 
+                // onChange={e => {setInfo(e.target.checked)}} 
+              />
+              <p>Gostaria de receber informativos da Mauá?</p>
+            </div>
           
-          <button onClick={sendRequest}>Realizar pedido</button>
+            {/* <button onClick={sendRequest}>Realizar pedido</button> */}
+            <input type="submit"/>
+          </form>
+
         </div>
 
         <div className={styles.rightSide}>
@@ -122,3 +130,7 @@ const sendRequest = () => {
 }
 
 export default App;
+
+// 8:10 ► https://www.youtube.com/watch?v=wlltgs5jmZw
+// https://www.rapidtables.com/code/text/ascii-table.html
+// https://www.youtube.com/watch?v=RQ1E2EjyqY4
